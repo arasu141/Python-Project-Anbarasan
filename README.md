@@ -25,6 +25,7 @@ Clone this repository or download the project files to your local machine.
 Open VS code and run this python file moviepicker_final_project_ver1.py
 
 The application will display the progress of the scrapping of each genre and once the data is scrapped, a floating menu with different genres will appear. Use the radio button options to select your desired genre and the program will display the matching results.Follow the instructions provided by the program to proceed with your selected action.
+overall scrapped data will be saved in C:/MOVIEPICKER
 
 **Notes**
 The scraping process may take some time depending on the number of movies being scraped and the speed of your internet connection.
