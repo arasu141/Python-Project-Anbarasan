@@ -10,6 +10,9 @@ from lxml import html
 from requests_html import AsyncHTMLSession
 from tkinter import messagebox
 global genre_list, genre
+import PySimpleGUI as sg
+import sys
+import random
 
 # creating folder
 import os
@@ -42,14 +45,12 @@ session = requests_html.HTMLSession()
 # function for creating the layout of the panel
 def template1():
     global u_id
-    import PySimpleGUI as sg
-    import sys
-
+    
     # creating the layout
     col = [[sg.Radio(x, 1, key ="k_"+str(x))] for x in genre_list]
 
     layout = [
-                [sg.Text('My layout')],
+                [sg.Text('Select the Genre:')],
                 [sg.Column(col, size=(300, 300), scrollable=True)],
                 [sg.Button('OK')],
                 [sg.Cancel("Cancel")]
@@ -79,10 +80,8 @@ def template1():
 # Function for data manupulation in the dataframe
 def select_genere(genere_one):
     global newdf, final_movie
-    import random
-    # newdf = pd.DataFrame(columns=['Movie List','movie year','genere list'])
-    # newdf.iloc[0:0]
     
+
     try:
         # print("calling select_genere function")
         newdf = df[df['genere list'] == u_id]
@@ -94,11 +93,14 @@ def select_genere(genere_one):
         print('******************************************************************************')
         print(" THE MOVIE YOU HAVE TO WATCH IS : " , final_movie)
 
-        choice  = input( " Do you want to select another movie? Y/N :")
-        if choice == "Y":
+        ch = sg.popup_yes_no(" Do you want to select another movie?",  title="YesNo")
+        if ch == 'Yes':
             template1()
         else:
             print("BYE Thanks")
+
+
+
     except ValueError:
         print(" There is no data for this Genere")
         template1()
@@ -119,7 +121,7 @@ def main():
     try:
         empty_df = pd.DataFrame()
         # get the list of geners
-        for item in r.html.xpath('//div[@class="sc-243fb82e-2 kwKkbX ipc-page-grid__item ipc-page-grid__item--span-2"]/section[2]/div[2]/div/a'):
+        for item in r.html.xpath('//section[@class="ipc-page-section ipc-page-section--base"][2]/div[2]/div[2]/a'):
             genre = item.text
             genre_list.append(genre)
             # print(genre)
@@ -135,25 +137,23 @@ def main():
                     movie_year_list.append(years)
 
                 df = pd.DataFrame(zip(movie_list,movie_year_list,genre_cluster), columns=["Movie List",'movie year','genere list'])
-                df.to_excel(r"C:\MOVIE_PICKER\final.xlsx", index=False)
+                df.to_excel(r"C:\MOVIE_PICKER\movie_picker.xlsx", index=False)
 
             print("extracting", genre)
 
-        messagebox.showinfo("", "The database has been downloaded")
+        messagebox.showinfo("", "The data has been extracted and saved in C:\MOVIE_PICKER")
             
 
     except NoSuchElementException:
-        print("No element was found, check for network connectivity / Rerun the program")
+        print("No element was found, check for network connectivity / Re-Run the program")
 
 # Calling the MAIN function
 if __name__ == '__main__':
-    inpu_from_user = input("do you wantto pick up a movie to watch ? Y/N :")
-    if inpu_from_user == 'Y':
-        # print("running main")
+
+    ch = sg.popup_yes_no("Do you want to select movie?",  title="Yes No")
+    if ch == 'Yes':
         print(main())
         template1()
-    elif inpu_from_user == 'N':
-        print("Ok bye")
     else:
-        print("Re-Run Program, and enter the correct values")
+        print("Ok bye")
     
