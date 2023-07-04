@@ -1,4 +1,6 @@
 # Python-Project-Anbarasan
+Note: Since larger file is not uploaded, i have added the .exe file in this path : https://www.dropbox.com/scl/fi/w905i3d3or5wr7w4hdfgn/moviepicker_final_project_ver1.exe?rlkey=l78nxmfb44324itk75zi11u0a&dl=0
+
 **Movie Picker Project**
 This Python project is designed to scrape movie data from IMDb.com website and provide movie recommendations based on the scraped information. It utilizes web scraping techniques to extract relevant and employs a recommendation algorithm to suggest movies to users based on their preferences.
 
@@ -25,7 +27,7 @@ Clone this repository or download the project files to your local machine.
 Open VS code and run this python file moviepicker_final_project_ver1.py
 
 The application will display the progress of the scrapping of each genre and once the data is scrapped, a floating menu with different genres will appear. Use the radio button options to select your desired genre and the program will display the matching results.Follow the instructions provided by the program to proceed with your selected action.
-overall scrapped data will be saved in C:/MOVIEPICKER
+overall scrapped data will be saved in C:/MOVIE_PICKER
 
 **Notes**
 The scraping process may take some time depending on the number of movies being scraped and the speed of your internet connection.
